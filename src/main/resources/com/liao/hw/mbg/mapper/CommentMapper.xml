@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liao.hw.mbg.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.liao.hw.mbg.entity.Comment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_img" jdbcType="VARCHAR" property="commentImg" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="environment" jdbcType="INTEGER" property="environment" />
+    <result column="service" jdbcType="INTEGER" property="service" />
+    <result column="taste" jdbcType="INTEGER" property="taste" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, open_id, comment_content, comment_img, create_date, environment, service, taste, 
+    score, del_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.liao.hw.mbg.entity.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liao.hw.mbg.entity.CommentExample">
+    delete from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liao.hw.mbg.entity.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment (open_id, comment_content, comment_img, 
+      create_date, environment, service, 
+      taste, score, del_flag)
+    values (#{openId,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, #{commentImg,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{environment,jdbcType=INTEGER}, #{service,jdbcType=INTEGER}, 
+      #{taste,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liao.hw.mbg.entity.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentImg != null">
+        comment_img,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="taste != null">
+        taste,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImg != null">
+        #{commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liao.hw.mbg.entity.CommentExample" resultType="java.lang.Long">
+    select count(*) from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentContent != null">
+        comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentImg != null">
+        comment_img = #{record.commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.environment != null">
+        environment = #{record.environment,jdbcType=INTEGER},
+      </if>
+      <if test="record.service != null">
+        service = #{record.service,jdbcType=INTEGER},
+      </if>
+      <if test="record.taste != null">
+        taste = #{record.taste,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment
+    set id = #{record.id,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      comment_img = #{record.commentImg,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      environment = #{record.environment,jdbcType=INTEGER},
+      service = #{record.service,jdbcType=INTEGER},
+      taste = #{record.taste,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liao.hw.mbg.entity.Comment">
+    update comment
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImg != null">
+        comment_img = #{commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        taste = #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liao.hw.mbg.entity.Comment">
+    update comment
+    set open_id = #{openId,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_img = #{commentImg,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      environment = #{environment,jdbcType=INTEGER},
+      service = #{service,jdbcType=INTEGER},
+      taste = #{taste,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.liao.hw.mbg.entity.Comment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_img" jdbcType="VARCHAR" property="commentImg" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="environment" jdbcType="INTEGER" property="environment" />
+    <result column="service" jdbcType="INTEGER" property="service" />
+    <result column="taste" jdbcType="INTEGER" property="taste" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, open_id, comment_content, comment_img, create_date, environment, service, taste, 
+    score, del_flag
+  </sql>
+  <select id="selectByExample" parameterType="com.liao.hw.mbg.entity.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liao.hw.mbg.entity.CommentExample">
+    delete from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liao.hw.mbg.entity.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment (open_id, comment_content, comment_img, 
+      create_date, environment, service, 
+      taste, score, del_flag)
+    values (#{openId,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, #{commentImg,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{environment,jdbcType=INTEGER}, #{service,jdbcType=INTEGER}, 
+      #{taste,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liao.hw.mbg.entity.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentImg != null">
+        comment_img,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="taste != null">
+        taste,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImg != null">
+        #{commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liao.hw.mbg.entity.CommentExample" resultType="java.lang.Long">
+    select count(*) from comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update comment
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentContent != null">
+        comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentImg != null">
+        comment_img = #{record.commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.environment != null">
+        environment = #{record.environment,jdbcType=INTEGER},
+      </if>
+      <if test="record.service != null">
+        service = #{record.service,jdbcType=INTEGER},
+      </if>
+      <if test="record.taste != null">
+        taste = #{record.taste,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.delFlag != null">
+        del_flag = #{record.delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update comment
+    set id = #{record.id,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      comment_content = #{record.commentContent,jdbcType=VARCHAR},
+      comment_img = #{record.commentImg,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      environment = #{record.environment,jdbcType=INTEGER},
+      service = #{record.service,jdbcType=INTEGER},
+      taste = #{record.taste,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      del_flag = #{record.delFlag,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liao.hw.mbg.entity.Comment">
+    update comment
+    <set>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentImg != null">
+        comment_img = #{commentImg,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        taste = #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liao.hw.mbg.entity.Comment">
+    update comment
+    set open_id = #{openId,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_img = #{commentImg,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      environment = #{environment,jdbcType=INTEGER},
+      service = #{service,jdbcType=INTEGER},
+      taste = #{taste,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
