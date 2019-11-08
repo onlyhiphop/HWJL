@@ -31,7 +31,7 @@
         <!--指定生成model的路径-->
         <javaModelGenerator targetPackage="com.liao.hw.mbg.entity" targetProject="D:\GitRepo\HWJL\HWJL\src\main\java"/>
         <!--指定生成mapper.xml的路径-->
-        <sqlMapGenerator targetPackage="com.liao.hw.mbg.mapper" targetProject="D:\GitRepo\HWJL\HWJL\src\main\resources"/>
+        <sqlMapGenerator targetPackage="mapper" targetProject="D:\GitRepo\HWJL\HWJL\src\main\resources\"/>
         <!--指定生成mapper接口的的路径-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.liao.hw.mbg.mapper"
                              targetProject="D:\GitRepo\HWJL\HWJL\src\main\java"/>
