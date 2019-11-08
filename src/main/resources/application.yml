@@ -8,4 +8,10 @@ mybatis:
   mapper-locations:
    - classpath: mapper/*.xml          # mbg生成的mapper文件
    - classpath: com/**/mapper/*.xml   # 自定义的mapper文件
+logging:
+  config: classpath:logback-spring.xml
+  level:        # 打印sql语句
+    dao: debug
+    org:
+      mybatis: debug
 
