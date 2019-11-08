@@ -25,6 +25,8 @@
 		<pagehelper-starter.version>1.2.10</pagehelper-starter.version>
 		<druid.version>1.1.10</druid.version>
 		<spring-data-commons.version>2.1.5.RELEASE</spring-data-commons.version>
+		<swagger2.version>2.7.0</swagger2.version>
+		<swagger-ui.version>2.7.0</swagger-ui.version>
 	</properties>
 
 	<!--设定主仓库，按设定顺序进行查找-->
@@ -129,6 +131,18 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!--Swagger-UI API文档生产工具-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger-ui.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
