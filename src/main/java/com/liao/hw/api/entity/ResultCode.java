@@ -23,11 +23,11 @@ public enum ResultCode implements MyErrorCode{
 
     @Override
     public long getCode() {
-        return 0;
+        return code;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 }

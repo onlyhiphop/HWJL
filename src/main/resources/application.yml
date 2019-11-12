@@ -6,6 +6,7 @@ spring:
     active: dev
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.liao.hw.mbg.entity
 logging:
   config: classpath:logback-spring.xml
   level:

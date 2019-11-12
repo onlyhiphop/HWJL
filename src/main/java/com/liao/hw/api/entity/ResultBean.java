@@ -1,5 +1,7 @@
 package com.liao.hw.api.entity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,11 +14,19 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class ResultBean<T> implements Serializable{
     private long code;
     private String message;
     private T data;
+
+    private static ObjectMapper mapper = new ObjectMapper();
+
+    public static String toJsonString(ResultBean resultBean) throws JsonProcessingException {
+        String jsonString = mapper.writeValueAsString(resultBean);
+        return jsonString;
+    }
 
     /**
      * 返回成功结果
@@ -105,4 +115,6 @@ public class ResultBean<T> implements Serializable{
     public static <T> ResultBean<T> forbidden(T data){
         return new ResultBean<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
+
+
 }

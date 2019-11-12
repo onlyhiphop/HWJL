@@ -1,6 +1,8 @@
 package com.liao.hw.mbg.entity;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -33,7 +35,10 @@ public class User implements Serializable {
     @ApiModelProperty(value = "创建时间")
     private Date createDate;
 
-    private String delFlat;
+    @ApiModelProperty(value = "更新时间")
+    private Date updateDate;
+
+    private String delFlag;
 
     private static final long serialVersionUID = 1L;
 
@@ -117,12 +122,20 @@ public class User implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getDelFlat() {
-        return delFlat;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setDelFlat(String delFlat) {
-        this.delFlat = delFlat;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     @Override
@@ -141,7 +154,7 @@ public class User implements Serializable {
         sb.append(", province=").append(province);
         sb.append(", phone=").append(phone);
         sb.append(", createDate=").append(createDate);
-        sb.append(", delFlat=").append(delFlat);
+        sb.append(", delFlag=").append(delFlag);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
