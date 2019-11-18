@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liao.hw.mbg.mapper.PushMapper">
+
+    <!--后台字段-->
+    <sql id="column">
+        a.id AS "id",
+        a.push_name AS "pushName",
+        a.push_avator AS "pushAvator",
+        a.push_content AS "pushContent",
+        a.push_img AS "pushImg",
+        a.create_date AS "createDate",
+        a.create_by AS "createBy",
+        a.is_push AS "isPush",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <!--api字段-->
+    <sql id="column2">
+        a.push_name AS "pushName",
+        a.push_avator AS "pushAvator",
+        a.push_content AS "pushContent",
+        a.push_img AS "pushImg",
+        a.create_date AS "createDate"
+    </sql>
+
+    <!--api：查询所有推送-->
+    <select id="findAllPush" resultType="Push">
+        SELECT
+          <include refid="column2"></include>
+        FROM push a
+        WHERE a.del_flag = '0' AND a.is_push = '1'
+        ORDER BY a.create_date ASC
+    </select>
+</mapper>

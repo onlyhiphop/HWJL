@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liao.hw.mbg.mapper.CommentMapper">
+
+    <!--后台字段-->
+    <sql id="columns">
+        a.id AS "id",
+        a.open_id AS "openId",
+        a.comment_content AS "commentContent",
+        a.comment_img AS "commentImg",
+        a.create_date AS "createDate",
+        a.environment AS "environment",
+        a.serivce AS "service",
+        a.taste AS "taste",
+        a.score AS "score",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <!--api字段-->
+    <sql id="columns2">
+        a.open_id AS "openId",
+        a.comment_content AS "commentContent",
+        a.comment_img AS "commentImg",
+        a.create_date AS "createDate",
+        a.score AS "score",
+        b.nick_name AS "user.nickName",
+        b.avatar_url AS "user.avatarUrl"
+    </sql>
+
+    <!--查询所有评论或个人评论，按时间降序-->
+    <select id="findAllComment" resultType="Comment">
+        SELECT
+          <include refid="columns2"></include>
+        FROM
+          comment a
+          LEFT JOIN user b ON a.open_id = b.open_id
+        <where>
+            a.del_flag = '0'
+            <if test="openId != null and openId !=''">
+                AND a.open_id = #{openId}
+            </if>
+        </where>
+        ORDER BY
+          a.create_date DESC
+    </select>
+</mapper>

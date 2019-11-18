@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liao.hw.mbg.mapper.SwiperMapper">
+
+    <!--后台字段-->
+    <sql id="column">
+        a.id AS "id",
+        a.img_url AS "imgUrl",
+        a.sort AS "sort",
+        a.del_flag AS "delFlag",
+        a.create_date AS "createDate",
+        a.create_by AS "createBy"
+    </sql>
+
+    <!--api字段-->
+    <sql id="column2">
+        a.img_url AS "imgUrl"
+    </sql>
+
+    <!--查询所有轮播图-->
+    <select id="findAllSwiper" resultType="Swiper">
+        SELECT
+          <include refid="column2"></include>
+        FROM swiper a
+        WHERE a.del_flag = '0'
+        ORDER BY a.sort ASC
+    </select>
+
+
+</mapper>

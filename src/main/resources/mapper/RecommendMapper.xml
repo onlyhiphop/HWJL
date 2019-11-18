@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liao.hw.mbg.mapper.RecommendMapper">
+
+    <!--后台字段-->
+    <sql id="column">
+        a.id AS "id",
+        a.rcm_name AS "rcmName",
+        a.rcm_img AS "rcm_Img",
+        a.rcm_price AS "rcmPrice",
+        a.is_recommend AS "isRecommend",
+        a.sort AS "sort",
+        a.create_date AS "createDate",
+        a.create_by AS "createBy",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <!--api字段-->
+    <sql id="column2">
+        a.id AS "id",
+        a.rcm_name AS "rcmName",
+        a.rcm_img AS "rcm_Img",
+        a.rcm_price AS "rcmPrice",
+    </sql>
+
+    <!--api:查询所有推荐-->
+    <select id="findAllRecommend">
+        SELECT
+          <include refid="column2"></include>
+        FROM recommend a
+        WHERE a.del_flag = '0' AND a.is_recommend = '1'
+        ORDER BY a.sort ASC
+    </select>
+</mapper>
