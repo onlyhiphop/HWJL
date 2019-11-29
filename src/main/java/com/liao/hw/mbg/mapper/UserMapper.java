@@ -1,30 +1,48 @@
 package com.liao.hw.mbg.mapper;
 
 import com.liao.hw.mbg.entity.User;
-import com.liao.hw.mbg.entity.UserExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    long countByExample(UserExample example);
 
-    int deleteByExample(UserExample example);
+    /**
+     * 根据openid查询是否存在用户
+     * @param openId
+     * @return User 返回用户信息
+     */
+    User findUserByOpenId(@Param("openId") String openId);
 
-    int deleteByPrimaryKey(Integer id);
+    /**
+     * 添加用户
+     * @param user
+     */
+    void insert(User user);
 
-    int insert(User record);
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    void update(User user);
 
-    int insertSelective(User record);
+    /**
+     * 存在用户，更新日期
+     * @param token
+     */
+    void updateDate(@Param("token") String token);
 
-    List<User> selectByExample(UserExample example);
+    /**
+     * 查询用户中心信息
+     * @return key:commentCount、couponCount、scoreCount
+     */
+    Map<String, String> findUserCenter(@Param("openId") String openId);
 
-    User selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    /**
+     * 根据 token （也就是数据库里面的id）, 查询用户信息
+     * @param token
+     * @return
+     */
+    User findUserById(@Param("token") String token);
 }

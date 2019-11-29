@@ -19,12 +19,12 @@
     <sql id="column2">
         a.id AS "id",
         a.rcm_name AS "rcmName",
-        a.rcm_img AS "rcm_Img",
-        a.rcm_price AS "rcmPrice",
+        a.rcm_img AS "rcmImg",
+        a.rcm_price AS "rcmPrice"
     </sql>
 
     <!--api:查询所有推荐-->
-    <select id="findAllRecommend">
+    <select id="findAllRecommend" resultType="Recommend">
         SELECT
           <include refid="column2"></include>
         FROM recommend a

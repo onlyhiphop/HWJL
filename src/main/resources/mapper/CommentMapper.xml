@@ -43,4 +43,28 @@
         ORDER BY
           a.create_date DESC
     </select>
+    
+    <!--存入评论-->
+    <insert id="saveComment">
+        INSERT INTO comment (
+            open_id,
+            comment_content,
+            create_date,
+            comment_img,
+            environment,
+            service,
+            taste,
+            score
+        ) VALUES (
+            #{openId},
+            #{commentContent},
+            NOW(),
+            #{commentImg},
+            #{environment},
+            #{service},
+            #{taste},
+            #{score}
+        )
+
+    </insert>
 </mapper>

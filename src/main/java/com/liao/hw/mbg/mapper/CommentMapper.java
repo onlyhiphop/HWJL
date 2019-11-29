@@ -1,30 +1,22 @@
 package com.liao.hw.mbg.mapper;
 
 import com.liao.hw.mbg.entity.Comment;
-import com.liao.hw.mbg.entity.CommentExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+
 public interface CommentMapper {
-    long countByExample(CommentExample example);
 
-    int deleteByExample(CommentExample example);
+    /**
+     * 查询所有的评论 或 个人评论
+     * @param openId
+     */
+    List<Comment> findAllComment(@Param("openId") String openId);
 
-    int deleteByPrimaryKey(Integer id);
-
-    int insert(Comment record);
-
-    int insertSelective(Comment record);
-
-    List<Comment> selectByExample(CommentExample example);
-
-    Comment selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") Comment record, @Param("example") CommentExample example);
-
-    int updateByExample(@Param("record") Comment record, @Param("example") CommentExample example);
-
-    int updateByPrimaryKeySelective(Comment record);
-
-    int updateByPrimaryKey(Comment record);
+    /**
+     * 发表评论
+     * @param comment
+     */
+    void saveComment(Comment comment);
 }

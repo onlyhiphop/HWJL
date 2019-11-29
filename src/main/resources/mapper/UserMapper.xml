@@ -25,7 +25,7 @@
         a.avatar_url AS "avatarUrl"
     </sql>
 
-    <!--查询是否存在用户，返回id-->
+    <!--查询是否存在用户-->
     <select id="findUserByOpenId" resultType="User">
       SELECT
         <include refid="column"></include>
@@ -36,6 +36,7 @@
     <insert id="insert">
         INSERT INTO user
         (
+          id,
           open_id,
           union_id,
           nick_name,
@@ -46,6 +47,7 @@
           phone,
           create_date
         ) VALUES (
+          #{id}
           #{openId},
           #{unionId},
           #{nickName},
@@ -60,7 +62,7 @@
 
     <!--存在用户只更新update_date-->
     <update id="updateDate">
-        UPDATE user SET update_date = NOW() WHERE id = #{id}
+        UPDATE user SET update_date = NOW() WHERE id = #{token}
     </update>
 
     <!--后台更新-->
@@ -79,5 +81,24 @@
         WHERE id = #{id}
     </update>
 
+    <!--根据token获取用户信息-->
+    <select id="findUserById" resultType="User">
+        SELECT
+          <include refid="column"></include>
+        FROM user a
+        WHERE a.del_flag = '0' AND a.id = #{token}
+    </select>
+
+    <!--api获取个人信息：评论条数，积分、优惠卷-->
+    <select id="findUserCenter" resultType="java.util.Map">
+        SELECT
+            a.nick_name AS "nickName",
+            a.avatar_url AS "avatarUrl",
+            (SELECT count(*) AS "scoreCount" FROM user_score WHERE del_flag = '0' AND open_id = #{openId}) AS "scoreCount",
+            (SELECT count(*) AS "commentCount" FROM comment WHERE del_flag = '0' AND open_id = #{openId}) AS "commentCount",
+            (SELECT count(*) AS "couponCount" FROM user_coupon WHERE del_flag = '0' AND open_id = #{openId}) as "couponCount"
+        FROM user a
+        WHERE a.del_flag = '0' AND a.open_id = #{openId}
+    </select>
 
 </mapper>

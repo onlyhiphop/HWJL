@@ -12,3 +12,37 @@ spring:
       stat-view-servlet: #访问监控网页的登录用户名和密码
         login-username: druid
         login-password: druid
+  jackson:  # 解决接口出现实体类字段为null
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.liao.hw.mbg.entity
+
+# 时间格式统一转换
+
+# 路径配置
+apiPath: api
+adminPath: admin
+uploadPath: /upload/img/
+uploadRealPath: /usr/local/tomcat8/upload
+
+# wx配置
+wx:
+  miniapp:
+    appid:
+    secret:
+    token:
+    aesKey:
+    msgDataFormat: JSON
+
+
+
+
+
