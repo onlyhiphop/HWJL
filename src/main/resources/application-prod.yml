@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://39.108.230.146:3306/hwjl?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: liao
-    password: forever522.
+    username: 
+    password:
     druid:
       initial-size: 1  # 连接池初始化大小
       min-idle: 5     # 最小空闲连接数
